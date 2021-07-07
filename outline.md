@@ -25,6 +25,7 @@ Why is it interesting: drives key actions in the Uniswap AMM
 - Recent growth
 
 Enhance technical sophistication
+Reduce activation energy
 
 *section* Solidity Toy Contract
 
@@ -54,4 +55,9 @@ Review the smart contract:
 - inheritance
 - using SafeMath
 - key variables
-- [choose one key action to describe]
+
+Focus on two functions: one simple, one more involved
+- getReserves
+- swap
+
+*Conclusion*
