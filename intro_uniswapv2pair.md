@@ -19,7 +19,17 @@ Our intent is to be the exploration guide that helps you discover. In so doing, 
 *activation energy figure*
 
 ## Smart Contracts
-Before we dive into the Uniswap contract, it will be helpful to develop some intuition for smart contracts. The intent is to bridge our existing web2 mental models and abstractions so we can expand into new territory. This way we'll be able to use web2 as our basecamp and develop with concrete examples 
+Before we dive into the Uniswap contract in [section 3](link), we'll first develop some key building blocks that will bridge our existing web2 mental models and allow us to expand into new territory. In a way, this will be our basecamp from which to launch a summit assault.
+
+Web2 is built on the [client-server model](https://en.wikipedia.org/wiki/Client%E2%80%93server_model) that connects clients (computers that issue requests) to servers (computers that provide resources) using a network. The servers handles request processing and data storage as centralized controllers that multiple clients access. To the extent there's duplication and redundancy in server systems, they are  centrally managed and retain control over the data that interacts with them.
+
+Web3 takes this one step further and decentralizes control over the server layer. You might think about it as a protocol layer that further decouples the client from the server, and importantly, that turns the server layer into decentralized infrastructure. The implications are vast and we're barely scratching the surface, but this simplistic model will allow us to interact with Ethereum - the server layer powering a lot of web3 applications. [1]
+
+A smart contract is a computer program encoded with business logic and saved on the Ethereum network. The contract includes an external interface defining how clients may interact with it, and it also includes a set of deterministic instructions that will execute according to the client's request. If the request is valid, the contract will execute and perform its task. Following the canonical example, it's helpful to think of smart contracts like digital vending machines. [2] A vending machine includes an external interface (the coin slot or a credit card terminal) and a set of deterministic instructions (if the right amount of money is inserted, allow the customer to select a drink). Once the purchase is executed, the vending machine delivers a drink to the customer, which changes its state (i.e. one less drink in the vending machine + a certain amount of money in the vending machine), and resets itself to listen for the next request cycle.
+
+*vending machine figure*
+
+Writing smart contracts it's no different than writing computer programs. The primary difference is the terminology we use to denote the key data types and structures that make up the protocol. As such, programming languages that are web3 specific have been written to be able to enable code that is optimized for web3. [Solidity] is one of the most popular of these so let's a little Solidity code to expand our bridge a bit further.
 
 ### Solidity Basics
 
@@ -30,6 +40,7 @@ Before we dive into the Uniswap contract, it will be helpful to develop some int
 For a more in-depth tutorial on Solidity, check out this quick tutorial from freeCodeCamp.
 
 ## Reviewing UniswapV2Pair
+--reference back to section 2--
 
 ## Interacting with UniswapV2Pair
 
