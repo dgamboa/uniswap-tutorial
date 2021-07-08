@@ -91,8 +91,23 @@ This means we were able to interact with the smart contract and change the state
 
 As you can tell the syntax is similar to TypeScript - nothing too out of the ordinary. There's a lot more to Solidity implementations as you can imagine, but you now have a solid mental model foundation from which to expand. For a more in-depth tutorial on Solidity, check out the [docs here](https://docs.soliditylang.org/en/v0.8.6/solidity-by-example.html) or watch this [freeCodeCamp tutorial](https://www.youtube.com/watch?v=ipwxYa-F1uY).
 
+### Key Ethereum Concepts
+It was helpful to abstract away the key web2 differences in the `NameContract` implementation so we could avoid any intimidating jargon and instead focus on writing a functional smart contract. Now that we've seen how simple it can be, let's go one layer deeper on some key differences.
+
+One of the first you might notice if you look to the left of our code on Remix is the account field. While it's tempting to think of these as pseudo-IP addresses, they're different enough that it might be more helpful to take a step back and discuss Ethereum's basic building blocks.
+
+- Transactions: think of transactions as network requests and responses. These can only be initiated by externally-owned accounts (described below) and result in a state change to the network. Because these require validation before changing state, they need to be mined and propagated. As such they require a fee to incentivize miners to execute the validation and propagation. For more, see the [Ethereum docs on Transactions](https://ethereum.org/en/developers/docs/transactions/).
+- Accounts: there are two types of accounts on Ethereum. Both can receive, hold and send tokens, and both can interact with deployed smart contracts. For more, see the [Ethereum docs on Accounts](https://ethereum.org/en/developers/docs/accounts/).
+  - Externally-Owned Accounts (EOA): human managed accounts with private to interact securely with the network and public keys to expose the account interface to the network. These accounts can initiate transactions.
+  - Contract Accounts: smart contracts deployed to the network at a specific address and controlled by code. These can only send transactions in response to receiving a transaction.
+- Gas: gas is the economic mechanism by which Ethereum ensures the network's resources are being used efficiently. Think of gas as the unit measuring the computational work performed by the network when a transaction is sent. The gas fees associated with a transaction can vary based on the transaction's complexity and the market price of gas (i.e. how much demand there is for processing transactions in the network at a given time). For more, see  the [Ethereum docs on Gas](https://ethereum.org/en/developers/docs/gas/).
+
+With those concepts in mind, you're now equipped to better understand the other parameters in the Remix dashboard. The account field represents the address, or unique identifier, of our simulated EOA. If you expand the log for your contract deployment, you can see the same address in the `from` field. Similarly, in the expanded log, you can see a similar string of alphanumeric characters that represents the contract's address in the `to` field.
+
+The other key parameter in the Remix dashboard is the gas limit field just below the account field. This represents the maximum gas you're willing to use to execute the transaction. When the gas consumed reaches the limit, the transaction will automatically stop. The gas cost (gas * gas price) will be incurred regardless, but if the transaction didn't finish executing, any changes it had intended to make won't persist and the network will continue operating in its pre-transaction state. If you decrease the gas limit enough in the `NameContract` and click the `name` button in the contract to get the name, you'll notice the call will fail and the log will display an error message saying, "base fee exceeds gas limit".
+
 ## Reviewing UniswapV2Pair
---reference back to section 2--
+
 
 ## Interacting with UniswapV2Pair
 
