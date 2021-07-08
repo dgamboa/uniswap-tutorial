@@ -3,14 +3,14 @@ description: >-
   Start building a smart contracts mental model by exploring Uniswap V2 Pair
 ---
 
-# Demystifying Uniswap V2 Pair
+# Demystifying Uniswap V2 Pair: A Concrete Introduction to Smart Contracts
 
 ## Introduction
 *Demystifying Uniswap V2 Pair* is an introduction to the world of smart contracts for web2 developers. It is aimed at those with a basic understanding of web development systems (frontend clients, backend APIs and databases, internet protocols), so if you've ever as much as dabbled with writing code for the web, and certainly if you've ever built web2 applications, you're in the right place. Having said that, this tutorial doesn't assume any technical sophistication with smart contracts. In fact, even if you've never written code, you'll probably gain an appreciation for how much leverage is embedded in web3 systems. That is, there's a tremendous amount of value-add work being performed with minimal input.
 
 *leverage figure*
 
-The main intent of this tutorial is to enhance (or perhaps even kickstart) your smart contracts mental model by introducing you to the basics in the context of a simple but sophisticated smart contract - the UniswapV2Pair contract powering the core functionality of the Uniswap decentralized exchange. This contract powers a large crypto-trading liquidity pool autonomously and has supported daily trading volumes as high as $4 billion. Moreover, trading volume in Uniswap was $36 billion in April 2021 - roughly one third of Coinbase, the largest centralized crypto exchange. 
+The main intent of this tutorial is to enhance (or perhaps even kickstart) your smart contracts mental model by introducing you to the basics in the context of a simple but sophisticated smart contract - the UniswapV2Pair contract powering the core functionality of the Uniswap decentralized exchange. This contract powers a large crypto-trading liquidity pool autonomously and has supported daily trading volumes as high as $4 billion. Moreover, trading volume in Uniswap was $36 billion in April 2021 - roughly one third of Coinbase, the largest centralized crypto exchange. We'll acquire the building blocks to understand this contract at a high level in *Section 2*, and dive into the code for it in *Section 3*.
 
 While we won't be diving deep into the basic concepts of web3 (e.g. blockchain, Ethereum, etc), we will define certain key terms along the way at a high level. Like a cartographer mapping the shore from a ship, the idea is to develop a sense for the concepts, allow for pattern matching with existing mental models, and begin to build the new mental models we'll need to expand our existing knowledge base. That's in contrast to the work of a surveyor that might study the territory up close to understand the specifics of each feature. 
 
@@ -107,8 +107,32 @@ With those concepts in mind, you're now equipped to better understand the other 
 The other key parameter in the Remix dashboard is the gas limit field just below the account field. This represents the maximum gas you're willing to use to execute the transaction. When the gas consumed reaches the limit, the transaction will automatically stop. The gas cost (gas * gas price) will be incurred regardless, but if the transaction didn't finish executing, any changes it had intended to make won't persist and the network will continue operating in its pre-transaction state. If you decrease the gas limit enough in the `NameContract` and click the `name` button in the contract to get the name, you'll notice the call will fail and the log will display an error message saying, "base fee exceeds gas limit".
 
 ## Reviewing UniswapV2Pair
+As promised in *Section 1*, we have most of the blocks we need to extend our mental model into a real smart contract. Before we dive into the code though, let's build one more block to finalize our bridge by understanding Uniswap itself.
 
+### Defining Uniswap
+[Uniswap]() is a decentralized exchange implemented as a smart contract on Ethereum. It works by enabling liquidity pools of paired tokens and dynamically calculating their relative price according to the balance in their relative reserves.
+
+To make the mental model a bit more concrete, imagine we have two assets, apples and oranges. We decide to make a market for people who want to trade apples for oranges and vice-versa. We build a small stand under a buttonwood tree and keep two buckets under the stand: one containing 100 apples, and the other containing 10 oranges. We list an exchange rate of 10 apples per orange and open for business. Perhaps someone notices that the relative pricing of apples and oranges at the grocery store is 5 apples per orange, and decides to buy 10 apples from us with one orange to take advantage of the arbitrage. That is, they will be able to get a free orange by purchasing an orange from the grocery store, using that orange to get 10 apples from us, and then trading those 10 apples for 2 oranges at the grocery store. Now that we have 10 less apples in our basket, and one extra orange, our baskets have 90 apples and 11 oranges. This means the price of our oranges in terms of our apples should have decreased. With the right pricing mechanism, you would expect our price to converge with the grocery store price as more buyers arbitrate the relative mispricing.
+
+The algorithm Uniswap uses to price each of their liquidity pools is only slightly more complicated and you're welcome to [read about it more here](https://uniswap.org/docs/v2/protocol-overview/how-uniswap-works/). But the key concepts are that Uniswap enables automated liquidity pools for token pairs.
+
+If you're HODLing tokens and want to participate as a liquidity provider, you can interact with the live smart contract for the specific pair you're interested in and contribute your tokens. You'll be granted a pro-rata share of the pool reserves in the form of a pool token that proves your ownership. Once you're ready to withdraw the liquidity you contributed, you trade the token back. 
+
+Alternatively, if you're a trader with a certain token, say `token a`, and you want to buy `token b, you can go to the `token a - token b` liquidity pool and trade `token a` for `token b`. You pay a small fee for the trade, and it automatically executes. The right amount of `token a` + the fee is withdrawn from your wallet and sent to the pool, and the right amount of `token b` is automatically withdrawn from the pool and sent to your wallet. In a large enough pool with enough trading volume and a small enough transaction relative to the pool, the price movement caused by your trade would be infinitesimally small.
+
+*uniswap system figure*
+
+Developers are a key part of the ecosystem because they represent the frontend of the Uniswap ecosystem. Uniswap provides functionality that can be leveraged directly by developers building trading interfaces, and indirectly by developers building additional functionality on top of Uniswap. For more examples, check out the [ecosystem participants page on the Uniswap protocol overview]().
+
+You might also want to solidify your understanding of automated liquidity pools relative to standard centralized exchanges. If so, this video from Finematics does a good job contrasting the two.
+
+*embed youtube video*
 
 ## Interacting with UniswapV2Pair
 
 ## Conclusion
+
+## Further Reading
+- Uniswap V2 whitepaper
+- Ethereum docs
+- Uniswap docs
