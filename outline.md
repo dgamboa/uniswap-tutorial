@@ -60,4 +60,8 @@ Focus on two functions: one simple, one more involved
 - getReserves
 - swap
 
+*section* Interact with Uniswap
+
+TBD
+
 *Conclusion*
