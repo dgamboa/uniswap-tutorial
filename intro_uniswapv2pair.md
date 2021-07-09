@@ -1,9 +1,9 @@
 ---
 description: >-
-  Start building a smart contracts mental model by exploring Uniswap V2 Pair
+  Start building a mental model by exploring the Uniswap V2 Pair smart contract
 ---
 
-# Demystifying Uniswap V2 Pair: A Concrete Introduction to Smart Contracts
+# An Introduction to Smart Contracts: Demystifying Uniswap V2 Pair
 
 ## Introduction
 *Demystifying Uniswap V2 Pair* is an introduction to the world of smart contracts for web2 developers. It is aimed at those with a basic understanding of web development systems (frontend clients, backend APIs and databases, internet protocols), so if you've ever as much as dabbled with writing code for the web, and certainly if you've ever built web2 applications, you're in the right place. Having said that, this tutorial doesn't assume any technical sophistication with smart contracts. In fact, even if you've never written code, you'll probably gain an appreciation for how much leverage is embedded in web3 systems. That is, there's a tremendous amount of value-add work being performed with minimal input.
