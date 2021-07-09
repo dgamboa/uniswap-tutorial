@@ -177,9 +177,21 @@ On line 11, we can see the pair contract being defined and inheriting from its c
 
 This is the perfect time to review the `initialize` function we saw when we created a pair liquidity pool in the factory. On line 66, you'll notice the function definition, which takes in two tokens as we saw in the previous section. This function first checks that the request is coming from a factory by leveraging the Solidity `msg.sender` syntax, where `msg` is the object that originated the call and `msg.sender` is the address of that object (i.e. EOA or contract). It then sets the contract's token properties to the two tokens passed in as arguments. If you search for the keywords `token0` and `token1` in the contract, you'll notice this is the only place where we set those properties, which makes sense since once a liquidity pool is established with two tokens, those should never change.
 
+The three primary functions of a pair contract are `mint`, `burn`, and `swap`. We'll dive into `swap` in more detail, but let's define all three first:
+- `mint`: creates pool tokens provided to liquidity providers in return for their contributed token pairs.
+- `burn`: burns pool tokens when a liquidity provider withdraws their contributed token pairs.
+- `swap`: enables traders to swap a token for another at the appropriate exchange rate.
 
+Scrolling to line 159, we can finally review the core Uniswap functionality that allows traders to exchange token pairs. You'll notice the function takes in four arguments: `amount0Out`, `amount1Out`, `to` (of `address` type), and `data`. You'll also notice that the function uses the keyword `lock` to incorporate the modifier we saw above. Conceptually this is locking the function while it executes. This is to prevent reentrancy attacks, which can externally manipulate a function while it executes (if you're interested in these, you should read about the 2016 DAO attack).
+
+The function then ensures at least one of the amounts to send out is greater than zero, sets local reserve variables for each token in the pair, and ensures the amounts to send out are less than the reserves in the liquidity pool. On lines 167-169 the contract sets variables for the token addresses and checks that the trader's `to` address is valid. The contract then initiates the transfer on lines 170-171, and sets balance variables for each token. On lines 176-177 the contract calculates how much the trader injected into the pool in exchange for the token bought by taking the subtracting the difference of the reserves (set before the transfer) and the amount out from the balance (set after the transfer). Finally the function performs numerical adjustments on the balances before confirming that the product of its pairs is preserved (the invariant `k` value driving price movements). Finally, it syncs up the balance and reserve variables before emitting a `Swap` event logging the transaction.
+
+Once you understand the this function's flow, you understand the main driver of the Uniswap exchange. From here you can invest additional time thinking through how this function interacts with the broader Ethereum ecosystem, how it leverages arbitrage forces for maintain market pricing, and how financial drivers incentivize activity on the exchange. You might even consider diving into the whitepaper to better understand the constant product formula, or studying the fascinating history behind Uniswap's founding and growth.
+
+*picture: now I can see*
 
 ## Conclusion
+Congratulations! You've built the foundation to your smart contracts mental model and in the process picked up a concrete understanding of one of the most popular and consequential smart contracts in DeFi. As you can see, smart contracts and the DeFi universe in general is both fascinating and exciting, but it can be hard to dive into the complexity associated with the inner workings. I hope that this foundation helps lower your activation energy to dive into more topics, and as a show of goodwill, I've included some further reading below that might pique your curiosity. Most of all, I hope you walk away with a better sense for what it takes to build smart contracts and with the belief that you can build these yourself.
 
 ## Further Reading
 - Ethereum Documentation
