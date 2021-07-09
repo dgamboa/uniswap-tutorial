@@ -154,7 +154,7 @@ Click on the `contracts` folder. Here we have three folders and three contracts:
 ### Reviewing UniswapV2Factory
 The best place to start building a technical understanding of Uniswap is the factory smart contract. We'll now leverage the basic mental model of Solidity from *section 2* to review the code that starts the Uniswap magic.
 
-*magic figure*
+*tesla magic figure*
 
 Click on the [UniswapV2Factory.sol](https://github.com/Uniswap/uniswap-v2-core/blob/master/contracts/UniswapV2Factory.sol) contract to open the page with its source code. The first thing you'll notice is the Solidity version specification on line 1, `pragma solidity =0.5.16;`. You'll also notice a couple of imports on lines 3 and 4 so the factory can leverage code from the factory interface (i.e. template) and the UniswapV2Pair contract. You might be wondering why the factory needs to leverage the UniswapV2Pair code. Recall that the role of the factory is to create liquidity pools for specific pairs. In other words, the factory is tasked with creating instances of pools that are governed by the code written in the pair contract. For the factory to be able to "instantiate" a pair, it needs to have access to the pair contract blueprint.
 
@@ -164,6 +164,13 @@ The next three items in the code we can quickly skim - an event object, a simple
 
 With that we can review the main function, `createPair`. This function takes two token addresses and returns the address for the created pair smart contract. That is, it takes in the two tokens for which we wish to create a liquidity, and returns the address of the created liquidity pool. The first line in the function validates that the two inputs aren't the same token since it doesn't make sense to swap a token for itself. The second line sorts the input token addresses in increasing order. The third line ensures the lowest address `token0` isn't the 0 address in Ethereum, which has a separate use case and doesn't represent a specific token. The fourth line ensures the pair hasn't already been created since the `getPair` function returns the 0 address if there's no existing pair liquidity pool.
 
+The next few lines (lin 28-33) are the key lines that fabricate the pair after all validations checked out. This part of the function uses the UniswapV2Pair blueprint to initialize an pair liquidity pool for the two tokens. It then records the pair address for the pool in lines 34 and 35, which will be used in the validations for future pair creations. Finally, it pushes the pair address into the list storing all the pairs that have been created and emits an event logging the pair creation.
+
+The last two functions are associated with the allocation of trading fee proceeds discussed above. With a better understanding of how Uniswap creates pairs, we've can now dive into the main show - the UniswapV2Pair contract.
+
+*greatest showman figure*
+
+### Reviewing UniswapV2Pair
 
 
 ## Conclusion
